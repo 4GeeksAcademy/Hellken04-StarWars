@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-export const Planeta = props => {
+export const StarShips = props => {
 	const { theId } = useParams();
 
-	const [planet, setPlanet] = useState(null);
+	const [starShips, setStarShips] = useState(null);
 
-	let imageUrl = "https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/planets/" + theId + ".jpg"
+	let imageUrl = "https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/starships/" + theId + ".jpg"
 
 	let baseUrl = "https://www.swapi.tech/api/"
 
-	function getPlanet() {
-		let url = baseUrl + "planets/" + theId
+	function getStarShips() {
+		let url = baseUrl + "starships/" + theId
 		fetch(url)
 			.then((response) => {
 				console.log(response);
 				if (response.ok == false) {
-					throw new Error('Error al consultar los planetas');
+					throw new Error('Error al consultar los starShips');
 				}
 				return response.json();
 			})
 			.then((data) => {
-				setPlanet(data.result.properties);
-				console.log(planet);
+				setStarShips(data.result.properties);
+				console.log(starShips);
 			})
 			.catch((error) => {
 				alert(error);
@@ -30,8 +30,8 @@ export const Planeta = props => {
 	}
 
 	useEffect(() => {
-		getPlanet();
-		console.log(planet);
+		getStarShips();
+		console.log(starShips);
 	}, [theId])
 
 	return (
@@ -41,48 +41,48 @@ export const Planeta = props => {
 					<img src={imageUrl} className="card-img-top m-4" style={{ width: "20rem" }} alt="..." />
 				</div>
 				<div className="col-5 m-4">
-					{planet ? (
+					{starShips ? (
 						<>
-							<h1><b>{planet.name}</b></h1>
+							<h1><b>{starShips.name}</b></h1>
 							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum repellendus, suscipit inventore consectetur, quasi enim veritatis repellat quisquam sed ex architecto necessitatibus quis. Ut necessitatibus dolore, inventore eos ex impedit.</p>
 						</>
 					) : (
-						<p>Cargando planet...</p>
+						<p>Cargando starShips...</p>
 					)}
 
 				</div>
 				<div>
-					{planet ? (
+					{starShips ? (
 						<div className="row m-4">
 							<div className="col-2">
-								<h5><b>Climate</b></h5>
-								<p>{planet.climate}</p>
+								<h5><b>Cargo Capacity</b></h5>
+								<p>{starShips.cargo_capacity}</p>
 							</div>
 							<div className="col-2">
-								<h5><b>Surface Water</b></h5>
-								<p>{planet.surface_water}</p>
+								<h5><b>Passengers</b></h5>
+								<p>{starShips.passengers}</p>
 							</div>
 							<div className="col-2">
-								<h5><b>Diameter</b></h5>
-								<p>{planet.diameter}</p>
+								<h5><b>Speed</b></h5>
+								<p>{starShips.max_atmosphering_speed}</p>
 							</div>
 							<div className="col-2">
-								<h5><b>Height</b></h5>
-								<p>{planet.name}</p>
+								<h5><b>Cost in Credits</b></h5>
+								<p>{starShips.cost_in_credits}</p>
 							</div>
 							<div className="col-2">
-								<h5><b>Rotation Period</b></h5>
-								<p>{planet.rotation_period}</p>
+								<h5><b>starship_class</b></h5>
+								<p>{starShips.starship_class}</p>
 							</div>
 							<div className="col-2">
-								<h5><b>Terrain</b></h5>
-								<p>{planet.terrain}</p>
+								<h5><b>Hyperdrive Rating</b></h5>
+								<p>{starShips.hyperdrive_rating}</p>
 							</div>
 						</div>
 
 
 					) : (
-						<p>Cargando planet...</p>
+						<p>Cargando starShips...</p>
 					)}
 				</div>
 				<div className="row">

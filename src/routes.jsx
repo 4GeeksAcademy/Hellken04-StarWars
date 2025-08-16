@@ -11,6 +11,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import { Planeta } from "./pages/Planeta";
 import { Personaje } from "./pages/Personaje";
+import { StarShips } from "./pages/StarShips";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
         <Route path="/demo" element={<Demo />} />
         <Route path="/planeta/:theId" element ={<Planeta/>} />
         <Route path="/personaje/:theId" element ={<Personaje/>} />
+        <Route path="/starship/:theId" element ={<StarShips/>} />
       </Route>
     )
 );

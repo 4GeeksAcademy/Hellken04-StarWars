@@ -1,5 +1,5 @@
 .scrollable-card-container {
-        width: 100%; 
+        width: 95%; 
         overflow-x: auto; 
         white-space: nowrap; 
         flex-wrap: nowrap;

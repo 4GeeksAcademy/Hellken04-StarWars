@@ -1,4 +1,4 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
+
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import React, { useEffect, useState } from "react";
 import { CardCharacter } from "../components/CardCharacter.jsx";
@@ -7,29 +7,21 @@ import { CardStarShip } from "../components/CardStarShips.jsx";
 
 export const Home = () => {
 
-	const [starShips,setStarShips]=useState([]);
-	const [characters, setCharacters]=useState([]);
-	const [planets, setPlanets] = useState([]);
 	const {store, dispatch} =useGlobalReducer();
 	let baseUrl ="https://www.swapi.tech/api/"
 	
-
   function getCharacters() {
 		let url = baseUrl + "people/"
 		fetch(url)
 			.then((response) => {
-				console.log(response);
 				if (response.ok == false) {
 					throw new Error('Error al consultar los personajes');
 				}
 				return response.json();
 			})
 			.then((data) => {
-				console.log("characters",data)
 				dispatch({type:"load_characters", payload:
 					data.results});
-				//setCharacters(data);
-				//console.log(characters)
 			})
 			.catch((error) => {
 				alert(error);
@@ -40,17 +32,14 @@ export const Home = () => {
 		let url = baseUrl + "planets/"
 		fetch(url)
 			.then((response) => {
-				console.log(response);
 				if (response.ok == false) {
 					throw new Error('Error al consultar los planetas');
 				}
 				return response.json();
 			})
 			.then((data) => {
-				console.log("planets",data)
 				dispatch({type:"load_planets", payload:
 					data.results});
-				console.log (store.planets)
 			})
 			.catch((error) => {
 				alert(error);
@@ -68,7 +57,6 @@ export const Home = () => {
 				return response.json();
 			})
 			.then((data) => {
-				console.log("starShips",data)
 				dispatch({type:"load_star_ships", payload:
 					data.results});
 			})
@@ -84,33 +72,36 @@ export const Home = () => {
 	},[])
 
 	return (
-		<div className="mt-3 container" >
-			
-				<div className="row scrollable-card-container m-2"  >
+		<div className="my-3 container bg-dark text-warning text-center" >
+				<h1><b>CHARACTERS</b></h1>
+				<div className="row scrollable-card-container m-4"  >
 				
 				{store.characters.map((character, index, array) => {
 					return (
-						<CardCharacter characterId={character.uid} characterName={character.name} key={index} />
+						<CardCharacter characterId={character.uid} characterName={character.name} />
 					)
 					}
 				)
 				}
 				</div>
-			
-			<div className="row scrollable-card-container m-2" >
+
+			<h1><b>PLANETS</b></h1>
+			<div className="row scrollable-card-container m-4" >
+				
 				{store.planets.map((planet, index, array) => {
 					return (
-						<CardPlanet planetId={planet.uid} planetName={planet.name} key={index} />
+						<CardPlanet planetId={planet.uid} planetName={planet.name} />
 					)
 					}
 				)
 				}
 			</div>
-
-			<div className="row scrollable-card-container m-2" >
-				{store.starShips.map((planet, index, array) => {
+			
+			<h1><b>STAR SHIPS</b></h1>
+			<div className="row scrollable-card-container m-4" >
+				{store.starShips.map((ship, index, array) => {
 					return (
-						<CardStarShip planetId={planet.uid} planetName={planet.name} key={index} />
+						<CardStarShip shipId={ship.uid} shipName={ship.name} />
 					)
 					}
 				)
